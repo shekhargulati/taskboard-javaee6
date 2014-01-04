@@ -1,0 +1,11 @@
+<h2>
+	Taskboards <a class="btn btn-primary pull-right" href="#/taskboards/new"><i
+		class="icon-plus-sign icon-white"></i> Create New Taskboard</a>
+</h2>
+
+<table class="table table-striped">
+	<tr ng-repeat="taskboard in taskboards">
+		<td><a href="#/taskboards/{{taskboard.id}}">{{taskboard.name}}</a></td>
+		<td>{{taskboard.description}}</td>
+	</tr>
+</table>

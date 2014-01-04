@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "tasks")
 @Access(AccessType.FIELD)
-@NamedQuery(name="findTasksByTaskboard",query = "SELECT t from Task t where taskboard =:taskboardId")
+@NamedQuery(name="findTasksByTaskboard",query = "SELECT t from Task t where taskboard =:taskboard")
 public class Task {
 
     @NotNull

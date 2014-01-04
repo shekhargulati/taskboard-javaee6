@@ -28,9 +28,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> findTasksForTaskboard(Long taskboardId) {
+    public List<Task> findTasksForTaskboard(Taskboard taskboard) {
         TypedQuery<Task> query = entityManager.createNamedQuery("findTasksByTaskboard",Task.class);
-        return query.setParameter("taskboardId",taskboardId).getResultList();
+        return query.setParameter("taskboard",taskboard).getResultList();
     }
 
 }

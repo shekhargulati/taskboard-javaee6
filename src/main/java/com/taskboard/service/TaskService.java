@@ -16,5 +16,5 @@ import java.util.List;
 public interface TaskService {
    public Task addTask(Taskboard taskboard, Task task);
 
-    List<Task> findTasksForTaskboard(Long taskboardId);
+    List<Task> findTasksForTaskboard(Taskboard taskboard);
 }

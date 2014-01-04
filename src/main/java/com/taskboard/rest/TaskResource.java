@@ -17,7 +17,7 @@ import java.util.List;
  * Time: 12:00 AM
  * To change this template use File | Settings | File Templates.
  */
-@Path("/{taskboard_id}/tasks")
+@Path("/taskboards/{taskboard_id}/tasks")
 public class TaskResource {
 
     @Inject
@@ -41,6 +41,10 @@ public class TaskResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Task> allTasksForTaskboard(@PathParam("taskboard_id") Long taskboardId){
-        return taskService.findTasksForTaskboard(taskboardId);
+        Taskboard taskboard = taskboardService.find(taskboardId);
+        if(taskboard == null){
+            throw new RuntimeException(String.format("No taskboard found with id %d",taskboard));
+        }
+        return taskService.findTasksForTaskboard(taskboard);
     }
 }
