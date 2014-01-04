@@ -2,6 +2,8 @@ package com.taskboard.service;
 
 import com.taskboard.domain.Taskboard;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: shekhargulati
@@ -14,4 +16,5 @@ public interface TaskboardService {
     public Taskboard save(Taskboard taskboard);
 
 
+    List<Taskboard> findAll();
 }

@@ -5,6 +5,7 @@ import com.taskboard.domain.Taskboard;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,5 +25,10 @@ public class TaskboardServiceImpl implements TaskboardService {
     public Taskboard save(Taskboard taskboard) {
         entityManager.persist(taskboard);
         return taskboard;
+    }
+
+    @Override
+    public List<Taskboard> findAll() {
+        return entityManager.createQuery("select t from Taskboard t",Taskboard.class).getResultList();
     }
 }

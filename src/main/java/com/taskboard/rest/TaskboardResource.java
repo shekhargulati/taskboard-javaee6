@@ -20,8 +20,7 @@ public class TaskboardResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Taskboard> allTaskboards(){
-        List<Taskboard> taskboards = new ArrayList<Taskboard>();
-        taskboards.add(new Taskboard("My Taskboar", "My Taskboard Description",new Date(),new Date(),10));
+        List<Taskboard> taskboards = taskboardService.findAll();
         return taskboards;
     }
 
@@ -30,7 +29,6 @@ public class TaskboardResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Taskboard createdNewTaskboard(Taskboard taskboard) {
         return taskboardService.save(taskboard);
-
     }
 
 
