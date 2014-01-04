@@ -1,4 +1,4 @@
-angular.module("taskboard.services", ["ngResource"]).
+angular.module("taskboard.services", ["ngRoute","ngResource"]).
     factory('taskboard', function ($resource) {
         var taskboard = $resource('/api/v1/taskboards/:taskboardId', {taskboardId: '@id'});
         taskboard.prototype.isNew = function(){
