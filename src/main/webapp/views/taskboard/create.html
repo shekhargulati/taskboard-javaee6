@@ -1,29 +1,37 @@
 <form novalidate class="form-horizontal" ng-submit="save()">
-	<div class="control-group">
-		<label class="control-label" for="name">Name</label>
-		<div class="controls">
-			<input type="text" ng-model="taskboard.name" id="name" required/>
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label" for="description">Description</label>
-		<div class="controls">
-			<textarea ng-model="taskboard.description" id="description"></textarea>
-		</div>
-	</div>
-    <div class="control-group">
-        <label class="control-label" for="start">Start Date</label>
-        <div class="controls">
-            <input type="date" ng-model="taskboard.start" id="start">
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="name">Name</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" ng-model="taskboard.name" id="name" placeholder="Enter Name.."
+                   required/>
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label" for="end">End Date</label>
-        <div class="controls">
-            <input type="date" ng-model="taskboard.end" id="end">
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="description">Description</label>
+
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="5" ng-model="taskboard.description" id="description"
+                      placeholder="Enter description(optional).."></textarea>
         </div>
     </div>
-	<div class="control-group">
-		<button id="save" class="btn btn-primary">Create New Taskboard</button>
-	</div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="start">Start Date</label>
+
+        <div class="col-sm-10">
+            <input class="form-control" type="date" ng-model="taskboard.start" id="start" required="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="end">End Date</label>
+
+        <div class="col-sm-10">
+            <input class="form-control" type="date" ng-model="taskboard.end" id="end" required="">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="save" class="btn btn-primary">Create New Taskboard</button>
+        </div>
+    </div>
 </form>
