@@ -11,7 +11,7 @@ import javax.ws.rs.core.Application;
  * To change this template use File | Settings | File Templates.
  */
 @ApplicationPath("/api/v1")
-public class JaxrsApplication extends Application {
+public class RestActivator extends Application {
 
 
 }
