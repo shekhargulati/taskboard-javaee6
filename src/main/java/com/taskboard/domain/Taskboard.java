@@ -56,7 +56,7 @@ public class Taskboard {
     @NotNull
     private int capacity;
 
-    @OneToMany(mappedBy = "taskboard_id")
+    @OneToMany(mappedBy = "taskboard")
     private List<Task> tasks = new ArrayList<Task>();
 
 
