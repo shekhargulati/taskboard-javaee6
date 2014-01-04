@@ -39,7 +39,7 @@ public class Task {
     @Column
     @NotNull
     @Future
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date dueDate;
 
     @NotNull
@@ -57,7 +57,6 @@ public class Task {
     private Date createdOn = new Date();
 
     @Column
-    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date finishedAt;
 
