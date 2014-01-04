@@ -37,7 +37,7 @@ public class Taskboard {
 
     @Column(updatable = false)
     @NotNull
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn = new Date();
 
     @Column
