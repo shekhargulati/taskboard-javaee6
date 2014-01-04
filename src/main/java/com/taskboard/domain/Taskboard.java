@@ -57,7 +57,7 @@ public class Taskboard {
     private int capacity;
 
     @OneToMany(mappedBy = "taskboard")
-    private List<Task> tasks = new ArrayList<Task>();
+    private List<Task> tasks;
 
 
     protected Taskboard() {
@@ -122,6 +122,14 @@ public class Taskboard {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
