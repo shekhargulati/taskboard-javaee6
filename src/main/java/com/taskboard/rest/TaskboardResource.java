@@ -31,4 +31,11 @@ public class TaskboardResource {
         return taskboardService.save(taskboard);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{taskboard_id}")
+    public Taskboard viewTaskboard(@PathParam("taskboard_id") Long taskboardId){
+        return taskboardService.find(taskboardId);
+    }
+
 }
