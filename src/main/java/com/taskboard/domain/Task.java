@@ -32,7 +32,7 @@ public class Task {
     @Column
     @NotNull
     @ElementCollection
-    @CollectionTable("TaskTypes")
+    @CollectionTable(name = "TaskTypes")
     private List<String> tags = new ArrayList<String>();
 
     @Column
