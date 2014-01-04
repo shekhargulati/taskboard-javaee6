@@ -31,4 +31,9 @@ public class TaskboardServiceImpl implements TaskboardService {
     public List<Taskboard> findAll() {
         return entityManager.createQuery("select t from Taskboard t",Taskboard.class).getResultList();
     }
+
+    @Override
+    public Taskboard find(Long taskboardId) {
+        return entityManager.find(Taskboard.class, taskboardId);
+    }
 }

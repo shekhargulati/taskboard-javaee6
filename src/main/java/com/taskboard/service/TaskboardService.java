@@ -17,4 +17,6 @@ public interface TaskboardService {
 
 
     List<Taskboard> findAll();
+
+    Taskboard find(Long taskboardId);
 }
