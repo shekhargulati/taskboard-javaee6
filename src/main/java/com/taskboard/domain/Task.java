@@ -32,7 +32,7 @@ public class Task {
 
     @Column
     @NotNull
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "TaskTypes")
     private List<String> tags = new ArrayList<String>();
 
