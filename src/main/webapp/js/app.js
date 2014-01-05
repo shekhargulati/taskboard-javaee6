@@ -17,15 +17,20 @@ taskboardServicesModlule.factory('Task', function ($resource, $routeParams) {
     return task;
 });
 
-var taskboardModule = angular.module("taskboard", ["taskboard.services"]).
-    config(function ($routeProvider) {
-        $routeProvider
-            .when('/', {templateUrl: 'views/taskboard/list.html', controller: taskboardModule.taskboardListController})
-            .when('/taskboards/new', {templateUrl: 'views/taskboard/create.html', controller: taskboardModule.taskboardCreateController})
-            .when('/taskboards/:taskboardId', {templateUrl: 'views/taskboard/detail.html', controller: taskboardModule.taskboardDetailController})
-            .when('/taskboards/:taskboardId/tasks/new', {templateUrl: 'views/task/create.html', controller: taskboardModule.taskCreateController});
-    }
-);
+var taskboardModule = angular.module("taskboard", ["taskboard.services"]);
+
+function taskboardRouteConfig($routeProvider) {
+    $routeProvider.
+        when('/', {templateUrl: 'views/taskboard/list.html', controller: taskboardModule.taskboardListController}).
+        when('/taskboards/new', {templateUrl: 'views/taskboard/create.html', controller: taskboardModule.taskboardCreateController}).
+        when('/taskboards/:taskboardId', {templateUrl: 'views/taskboard/detail.html', controller: taskboardModule.taskboardDetailController}).
+        when('/taskboards/:taskboardId/tasks/new', {templateUrl: 'views/task/create.html', controller: taskboardModule.taskCreateController}).
+        otherwise({
+            redirectTo: '/'
+        });
+}
+
+taskboardModule.config(taskboardRouteConfig);
 
 taskboardModule.filter('summary', function () {
     var summaryFilter = function (input) {
