@@ -5,8 +5,8 @@
 
 <div id="taskboards" ng-repeat="taskboard in taskboards">
     <div class="taskboard col-md-3 col-md-offset-1">
-        <h2 ng-bind="taskboard.name"></h2>
-        <p class="lead" ng-bind="taskboard.description"></p>
-        <a ng-href="#/taskboards/{{taskboard.id}}">View</a>
+        <a ng-href="#/taskboards/{{taskboard.id}}"><h2 ng-bind="taskboard.name"></h2></a>
+        <p class="lead" ng-bind="taskboard.description | summary"></p>
+
     </div>
 </div>

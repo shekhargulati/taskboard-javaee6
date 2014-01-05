@@ -24,8 +24,23 @@ var taskboardModule = angular.module("taskboard", ["taskboard.services"]).
             .when('/taskboards/new', {templateUrl: 'views/taskboard/create.html', controller: taskboardModule.taskboardCreateController})
             .when('/taskboards/:taskboardId', {templateUrl: 'views/taskboard/detail.html', controller: taskboardModule.taskboardDetailController})
             .when('/taskboards/:taskboardId/tasks/new', {templateUrl: 'views/task/create.html', controller: taskboardModule.taskCreateController});
-    });
+    }
+);
 
+taskboardModule.filter('summary', function () {
+    var summaryFilter = function (input) {
+        var words = input.trim().split(' ');
+        var wordCount = words.length;
+        if (wordCount > 10) {
+            words = words.slice(0, 10);
+            var summary = words.join(' ');
+            summary = summary.concat('...');
+            return summary;
+        }
+        return input;
+    }
+    return summaryFilter;
+});
 
 taskboardModule.taskboardListController = function ($scope, Taskboard) {
     $scope.taskboards = Taskboard.query();
