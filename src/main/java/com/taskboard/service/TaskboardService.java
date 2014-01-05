@@ -20,4 +20,6 @@ public interface TaskboardService {
     List<TaskboardVO> findAll();
 
     Taskboard find(Long taskboardId);
+
+    void updateTotalPoints(Taskboard taskboard, int points);
 }

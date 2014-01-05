@@ -35,7 +35,9 @@ public class TaskResource {
         if(taskboard == null){
             throw new RuntimeException(String.format("No taskboard found with id %d",taskboard));
         }
-        return taskService.addTask(taskboard,task);
+        Task addedTask = taskService.addTask(taskboard, task);
+        taskboardService.updateTotalPoints(taskboard,addedTask.getPoints());
+        return addedTask;
     }
 
     @GET

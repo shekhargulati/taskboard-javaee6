@@ -62,6 +62,9 @@ public class Taskboard {
     @JsonManagedReference
     private List<Task> tasks;
 
+    @Column
+    private int totalPoints;
+
 
     protected Taskboard() {
     }
@@ -133,6 +136,14 @@ public class Taskboard {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
     }
 
     @Override
