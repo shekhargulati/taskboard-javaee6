@@ -1,17 +1,17 @@
-<form novalidate class="form-horizontal" ng-submit="save()">
+<form name="newTaskboardForm" novalidate="" class="form-horizontal" ng-submit="save()">
     <div class="form-group">
         <label class="col-sm-2 control-label" for="name">Name</label>
 
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="taskboard.name" id="name" placeholder="Enter Name.."
-                   required/>
+            <input type="text" class="form-control" ng-model="taskboard.name" id="name" name="name" placeholder="Enter Name.."
+                   required="true" ng-required="true" >
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label" for="description">Description</label>
 
         <div class="col-sm-10">
-            <textarea class="form-control" rows="5" ng-model="taskboard.description" id="description"
+            <textarea class="form-control" rows="5" name="description" ng-model="taskboard.description" id="description"
                       placeholder="Enter description(optional).."></textarea>
         </div>
     </div>
@@ -19,14 +19,14 @@
         <label class="col-sm-2 control-label" for="start">Start Date</label>
 
         <div class="col-sm-10">
-            <input class="form-control" type="date" ng-model="taskboard.start" id="start" required="">
+            <input class="form-control" type="date" ng-model="taskboard.start" name="start" id="start" required >
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label" for="end">End Date</label>
 
         <div class="col-sm-10">
-            <input class="form-control" type="date" ng-model="taskboard.end" id="end" required="">
+            <input class="form-control" type="date" ng-model="taskboard.end" name="end" id="end" required >
         </div>
     </div>
     <div class="form-group">
