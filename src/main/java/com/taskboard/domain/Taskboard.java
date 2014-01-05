@@ -1,5 +1,7 @@
 package com.taskboard.domain;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
@@ -57,6 +59,7 @@ public class Taskboard {
     private int capacity;
 
     @OneToMany(mappedBy = "taskboard")
+    @JsonManagedReference
     private List<Task> tasks;
 
 

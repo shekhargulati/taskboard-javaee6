@@ -1,6 +1,7 @@
 package com.taskboard.service;
 
 import com.taskboard.domain.Taskboard;
+import com.taskboard.service.vo.TaskboardVO;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface TaskboardService {
     public Taskboard save(Taskboard taskboard);
 
 
-    List<Taskboard> findAll();
+    List<TaskboardVO> findAll();
 
     Taskboard find(Long taskboardId);
 }

@@ -1,6 +1,7 @@
 package com.taskboard.service;
 
 import com.taskboard.domain.Taskboard;
+import com.taskboard.service.vo.TaskboardVO;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,8 +29,8 @@ public class TaskboardServiceImpl implements TaskboardService {
     }
 
     @Override
-    public List<Taskboard> findAll() {
-        return entityManager.createQuery("select t from Taskboard t",Taskboard.class).getResultList();
+    public List<TaskboardVO> findAll() {
+        return entityManager.createQuery("select NEW com.taskboard.service.vo.TaskboardVO(t.id,t.name,t.description) FROM Taskboard AS t",TaskboardVO.class).getResultList();
     }
 
     @Override

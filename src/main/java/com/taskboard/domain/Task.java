@@ -1,5 +1,7 @@
 package com.taskboard.domain;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.ArrayList;
@@ -63,6 +65,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "taskboard_id")
     @NotNull
+    @JsonBackReference
     private Taskboard taskboard;
 
 

@@ -2,6 +2,7 @@ package com.taskboard.rest;
 
 import com.taskboard.domain.Taskboard;
 import com.taskboard.service.TaskboardService;
+import com.taskboard.service.vo.TaskboardVO;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -19,8 +20,8 @@ public class TaskboardResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Taskboard> allTaskboards(){
-        List<Taskboard> taskboards = taskboardService.findAll();
+    public List<TaskboardVO> allTaskboards(){
+        List<TaskboardVO> taskboards = taskboardService.findAll();
         return taskboards;
     }
 
