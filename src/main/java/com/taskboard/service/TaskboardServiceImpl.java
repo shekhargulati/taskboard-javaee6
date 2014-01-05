@@ -36,7 +36,9 @@ public class TaskboardServiceImpl implements TaskboardService {
     @Override
     public Taskboard find(Long taskboardId) {
         Taskboard taskboard = entityManager.find(Taskboard.class, taskboardId);
-        taskboard.getTasks().iterator().next();
+        if(taskboard !=null && taskboard.getTasks()!=null && !taskboard.getTasks().isEmpty()){
+            taskboard.getTasks().iterator().next();
+        }
         return taskboard;
     }
 }
