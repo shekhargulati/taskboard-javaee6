@@ -1,5 +1,5 @@
 <h2>
-	Taskboards <a class="btn btn-primary pull-right" href="#/taskboards/new"><i
+	Taskboards <a class="btn btn-primary pull-right" ng-href="#/taskboards/new"><i
 		class="glyphicon glyphicon-plus"></i> Create New Taskboard</a>
 </h2>
 
@@ -7,6 +7,6 @@
     <div class="taskboard col-md-3 col-md-offset-1">
         <h2 ng-bind="taskboard.name"></h2>
         <p class="lead" ng-bind="taskboard.description"></p>
-        <a href="#/taskboards/{{taskboard.id}}">View</a>
+        <a ng-href="#/taskboards/{{taskboard.id}}">View</a>
     </div>
 </div>
