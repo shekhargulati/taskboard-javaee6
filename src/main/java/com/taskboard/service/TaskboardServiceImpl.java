@@ -6,6 +6,7 @@ import com.taskboard.service.vo.TaskboardVO;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -47,6 +48,9 @@ public class TaskboardServiceImpl implements TaskboardService {
         int currentTotalPoints = taskboard.getTotalPoints();
         int totalPoints = currentTotalPoints + points;
         taskboard.setTotalPoints(totalPoints);
-        entityManager.merge(taskboard);
+        Query query = entityManager.createQuery("UPDATE Taskboard t set t.totalPoints = :totalPoints where t.id = :id");
+        query.setParameter("totalPoints",totalPoints);
+        query.setParameter("id",taskboard.getId());
+        query.executeUpdate();
     }
 }
