@@ -24,9 +24,13 @@ angular.module("taskboard", ["taskboard.services"]).
             .when('/taskboards/:taskboardId/tasks/new',{templateUrl: 'views/task/create.html', controller: taskCreateController});
     });
 
+
+
+
 function taskboardListController($scope, taskboard) {
     $scope.taskboards = taskboard.query();
-    
+
+
 }
 
 function taskboardCreateController($scope, $routeParams, $location, taskboard) {
@@ -44,7 +48,7 @@ function taskboardCreateController($scope, $routeParams, $location, taskboard) {
 
 function taskboardDetailController($scope, $routeParams, $location, taskboard) {
     var taskboardId = $routeParams.taskboardId;
-    
+
     $scope.taskboard = taskboard.get({taskboardId: taskboardId});
 
 }
