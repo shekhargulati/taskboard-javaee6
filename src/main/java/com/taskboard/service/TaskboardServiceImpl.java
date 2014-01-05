@@ -45,7 +45,7 @@ public class TaskboardServiceImpl implements TaskboardService {
     @Override
     public void updateTotalPoints(Taskboard taskboard, int points) {
         int currentTotalPoints = taskboard.getTotalPoints();
-        int totalPoints = taskboard.getTotalPoints() + currentTotalPoints;
+        int totalPoints = currentTotalPoints + points;
         taskboard.setTotalPoints(totalPoints);
         entityManager.merge(taskboard);
     }
