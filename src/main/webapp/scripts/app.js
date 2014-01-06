@@ -1,7 +1,7 @@
 var services = angular.module("taskboard.services", ["ngRoute", "ngResource"]);
 
 services.factory('Taskboard', function ($resource) {
-        return  $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId', {taskboardId:'@id'});
+        return  $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId', {taskboardId: '@id'});
     }
 );
 
@@ -34,40 +34,11 @@ services.factory('TaskboardLoader', ['Taskboard', '$route', '$q',
 );
 
 services.factory('Task',
-    function ($resource, $route) {
-        var taskboardId = $route.current.params.taskboardId;
-        var task = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId/tasks/:taskId', {taskboardId: taskboardId, taskId: "@id"});
+    function ($resource, $routeParams) {
+        var task = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId/tasks/:taskId', {taskboardId: "@taskboardId", taskId: "@id"});
         task.prototype.isNew = function () {
             return (typeof(this.id) === 'undefined');
         }
         return task;
     }
-);
-
-services.factory('TaskListLoader', ['Task', '$q',
-    function (Task, $q) {
-        return function () {
-            var delay = $q.defer();
-            Task.query(function (tasks) {
-                delay.resolve(tasks);
-            }, function () {
-                delay.reject('Unable to fetch tasks');
-            });
-            return delay.promise;
-        };
-    }]
-);
-
-services.factory('TaskLoader', ['Task', '$route', '$q',
-    function (Task, $route, $q) {
-        return function () {
-            var delay = $q.defer();
-            Task.get({taskId: $route.current.params.taskId}, function (task) {
-                delay.resolve(task);
-            }, function () {
-                delay.reject('Unable to find task with id: ' + $route.current.params.taskId);
-            });
-            return delay.promise;
-        };
-    }]
 );

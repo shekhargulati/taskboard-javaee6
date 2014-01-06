@@ -74,7 +74,7 @@ taskboardModule.controller('taskboardDetailController', function ($scope, $locat
 taskboardModule.controller('taskCreateController', ['$scope', '$location', '$routeParams', 'Task',
     function ($scope, $location, $routeParams, Task) {
         var taskboardId = $routeParams.taskboardId;
-        $scope.task = new Task({});
+        $scope.task = new Task({taskboardId:taskboardId});
 
         $scope.save = function () {
             var task = $scope.task;

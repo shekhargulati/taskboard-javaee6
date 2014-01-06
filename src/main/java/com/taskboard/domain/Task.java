@@ -66,6 +66,9 @@ public class Task {
     @JsonBackReference
     private Taskboard taskboard;
 
+    @Transient
+    private long taskboardId;
+
 
     protected Task() {
     }
@@ -143,6 +146,14 @@ public class Task {
 
     public void setTaskboard(Taskboard taskboard) {
         this.taskboard = taskboard;
+    }
+
+    public long getTaskboardId() {
+        return taskboardId;
+    }
+
+    public void setTaskboardId(long taskboardId) {
+        this.taskboardId = taskboardId;
     }
 
     @Override
