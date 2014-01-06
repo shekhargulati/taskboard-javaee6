@@ -2,7 +2,7 @@
     <div class="col-md-4">
         <h1>{{taskboard.name}}</h1>
 
-        <h2>Total Points: {{taskboard.totalPoints}}</h2>
+        <h2 ng-hide="taskboard.totalPoints == 0">Total Points: {{taskboard.totalPoints}}</h2>
         <small class="muted">{{taskboard.createdOn | date:'medium'}}</small>
         </h2>
         <hr>

@@ -62,7 +62,7 @@ services.factory('TaskLoader', ['Task', '$route', '$q',
     function (Task, $route, $q) {
         return function () {
             var delay = $q.defer();
-            Task.get({id: $route.current.params.taskId}, function (task) {
+            Task.get({taskId: $route.current.params.taskId}, function (task) {
                 delay.resolve(task);
             }, function () {
                 delay.reject('Unable to find task with id: ' + $route.current.params.taskId);
