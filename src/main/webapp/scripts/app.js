@@ -28,23 +28,25 @@ services.factory('TaskboardLoader', ['Taskboard', '$route', '$q',
     function (Taskboard, $route, $q) {
         return function () {
             var delay = $q.defer();
-            Taskboard.get({id: $route.current.params.taskboardId}, function (taskbord) {
-                delay.resolve(taskbord);
+            Taskboard.get({id: $route.current.params.taskboardId}, function (taskboard) {
+                delay.resolve(taskboard);
             }, function () {
                 delay.reject('Unable to find taskboard with id: ' + $route.current.params.taskboardId);
             });
+            return delay.promise;
         };
     }]
 );
 
-services.factory('Task', ['$resource', function ($resource, $routeParams) {
-    var taskboardId = $routeParams.taskboardId;
-    var task = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId/tasks/:taskId', {taskboardId: taskboardId, taskId: "@id"});
-    task.prototype.isNew = function () {
-        return (typeof(this.id) === 'undefined');
-    }
-    return task;
-}]);
+services.factory('Task', ['$resource',
+    function ($resource, $routeParams) {
+        var taskboardId = $routeParams.taskboardId;
+        var task = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId/tasks/:taskId', {taskboardId: taskboardId, taskId: "@id"});
+        task.prototype.isNew = function () {
+            return (typeof(this.id) === 'undefined');
+        }
+        return task;
+    }]);
 
 services.factory('TaskListLoader', ['Task', '$q',
     function (Task, $q) {
@@ -69,6 +71,7 @@ services.factory('TaskLoader', ['Task', '$route', '$q',
             }, function () {
                 delay.reject('Unable to find task with id: ' + $route.current.params.taskId);
             });
+            return delay.promise;
         };
     }]
 );

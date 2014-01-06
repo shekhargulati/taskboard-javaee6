@@ -2,7 +2,7 @@
 
 var taskboardModule = angular.module("taskboard", ["taskboard.services"]);
 
-function taskboardRouteConfig($routeProvider) {
+taskboardModule.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
         when('/', {
             templateUrl: 'views/taskboard/list.html',
@@ -43,9 +43,7 @@ function taskboardRouteConfig($routeProvider) {
         otherwise({
             redirectTo: '/'
         });
-}
-
-taskboardModule.config(taskboardRouteConfig);
+}]);
 
 taskboardModule.filter('summary', function () {
     var summaryFilter = function (input) {
