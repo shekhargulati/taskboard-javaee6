@@ -1,83 +1,74 @@
-var taskboardServicesModlule = angular.module("taskboard.services", ["ngRoute", "ngResource"]);
+var services = angular.module("taskboard.services", ["ngRoute", "ngResource"]);
 
-taskboardServicesModlule.factory('Taskboard', function ($resource) {
-    var taskboard = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId', {taskboardId: '@id'});
-    taskboard.prototype.isNew = function () {
-        return (typeof(this.id) === 'undefined');
-    }
-    return taskboard;
-});
+services.factory('Taskboard', ['$resource',
+    function ($resource) {
+        var taskboard = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId', {taskboardId: '@id'});
+        taskboard.prototype.isNew = function () {
+            return (typeof(this.id) === 'undefined');
+        }
+        return taskboard;
+    }]
+);
 
-taskboardServicesModlule.factory('Task', function ($resource, $routeParams) {
+services.factory('TaskboardListLoader', ['Taskboard', '$q',
+    function (Taskboard, $q) {
+        return function () {
+            var delay = $q.defer();
+            Taskboard.query(function (taskboards) {
+                delay.resolve(taskboards);
+            }, function () {
+                delay.reject('Unable to fetch taskboards');
+            });
+            return delay.promise;
+        };
+    }]
+);
+
+services.factory('TaskboardLoader', ['Taskboard', '$route', '$q',
+    function (Taskboard, $route, $q) {
+        return function () {
+            var delay = $q.defer();
+            Taskboard.get({id: $route.current.params.taskboardId}, function (taskbord) {
+                delay.resolve(taskbord);
+            }, function () {
+                delay.reject('Unable to find taskboard with id: ' + $route.current.params.taskboardId);
+            });
+        };
+    }]
+);
+
+services.factory('Task', ['$resource', function ($resource, $routeParams) {
     var taskboardId = $routeParams.taskboardId;
     var task = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId/tasks/:taskId', {taskboardId: taskboardId, taskId: "@id"});
     task.prototype.isNew = function () {
         return (typeof(this.id) === 'undefined');
     }
     return task;
-});
+}]);
 
-var taskboardModule = angular.module("taskboard", ["taskboard.services"]);
+services.factory('TaskListLoader', ['Task', '$q',
+    function (Task, $q) {
+        return function () {
+            var delay = $q.defer();
+            Task.query(function (tasks) {
+                delay.resolve(tasks);
+            }, function () {
+                delay.reject('Unable to fetch tasks');
+            });
+            return delay.promise;
+        };
+    }]
+);
 
-function taskboardRouteConfig($routeProvider) {
-    $routeProvider.
-        when('/', {templateUrl: 'views/taskboard/list.html', controller: taskboardModule.taskboardListController}).
-        when('/taskboards/new', {templateUrl: 'views/taskboard/create.html', controller: taskboardModule.taskboardCreateController}).
-        when('/taskboards/:taskboardId', {templateUrl: 'views/taskboard/detail.html', controller: taskboardModule.taskboardDetailController}).
-        when('/taskboards/:taskboardId/tasks/new', {templateUrl: 'views/task/create.html', controller: taskboardModule.taskCreateController}).
-        otherwise({
-            redirectTo: '/'
-        });
-}
-
-taskboardModule.config(taskboardRouteConfig);
-
-taskboardModule.filter('summary', function () {
-    var summaryFilter = function (input) {
-        var words = input.trim().split(' ');
-        var wordCount = words.length;
-        if (wordCount > 10) {
-            words = words.slice(0, 10);
-            var summary = words.join(' ');
-            summary = summary.concat('...');
-            return summary;
-        }
-        return input;
-    }
-    return summaryFilter;
-});
-
-taskboardModule.taskboardListController = function ($scope, Taskboard) {
-    $scope.taskboards = Taskboard.query();
-}
-
-taskboardModule.taskboardCreateController = function ($scope, $routeParams, $location, Taskboard) {
-    $scope.taskboard = new Taskboard();
-    $scope.save = function () {
-        $scope.taskboard.$save(function (taskboard, headers) {
-            toastr.success("Created New taskboard");
-            $location.path('/');
-        });
-    };
-}
-taskboardModule.taskboardDetailController = function ($scope, $routeParams, $location, Taskboard) {
-    var taskboardId = $routeParams.taskboardId;
-    $scope.taskboard = Taskboard.get({taskboardId: taskboardId});
-}
-
-
-taskboardModule.taskCreateController = function ($scope, $routeParams, $location, Task) {
-    var taskboardId = $routeParams.taskboardId;
-    $scope.task = new Task();
-    $scope.save = function () {
-        var task = $scope.task;
-        if (!(task['tags'] instanceof Array)) {
-            task['tags'] = task['tags'].split(",");
-            $scope.task = task;
-        }
-        $scope.task.$save(function (task, headers) {
-            toastr.success("Created New Task");
-            $location.path('/taskboards/' + taskboardId);
-        });
-    };
-}
+services.factory('TaskLoader', ['Task', '$route', '$q',
+    function (Task, $route, $q) {
+        return function () {
+            var delay = $q.defer();
+            Task.get({id: $route.current.params.taskId}, function (task) {
+                delay.resolve(task);
+            }, function () {
+                delay.reject('Unable to find task with id: ' + $route.current.params.taskId);
+            });
+        };
+    }]
+);
