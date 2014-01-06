@@ -6,7 +6,7 @@ taskboardModule.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
         when('/', {
             templateUrl: 'views/taskboard/list.html',
-            controller: taskboardModule.taskboardListController,
+            controller: 'taskboardListController',
             resolve: {
                 taskboards: ['TaskboardListLoader', function (TaskboardListLoader) {
                     return TaskboardListLoader();
@@ -19,22 +19,16 @@ taskboardModule.config(['$routeProvider', function ($routeProvider) {
         }).
         when('/taskboards/:taskboardId', {
             templateUrl: 'views/taskboard/detail.html',
-            controller: taskboardModule.taskboardDetailController,
+            controller: 'taskboardDetailController',
             resolve: {
                 taskboard: ['TaskboardLoader', function (TaskboardLoader) {
-                    alert('in view');
                     return TaskboardLoader();
                 }]
             }
         }).
         when('/taskboards/:taskboardId/tasks/new', {
             templateUrl: 'views/task/create.html',
-            controller: taskboardModule.taskCreateController,
-            resolve: {
-                task: ['TaskLoader', function (TaskLoader) {
-                    return TaskLoader();
-                }]
-            }
+            controller: 'taskCreateController'
         }).
         otherwise({
             redirectTo: '/'
@@ -56,9 +50,9 @@ taskboardModule.filter('summary', function () {
     return summaryFilter;
 });
 
-taskboardModule.taskboardListController = function ($scope, taskboards) {
+taskboardModule.controller('taskboardListController', function ($scope, taskboards) {
     $scope.taskboards = taskboards;
-}
+});
 
 taskboardModule.controller('taskboardCreateController', ['$scope', '$location', 'Taskboard',
     function ($scope, $location, Taskboard) {
@@ -72,23 +66,26 @@ taskboardModule.controller('taskboardCreateController', ['$scope', '$location', 
     }]);
 
 
-taskboardModule.taskboardDetailController = function ($scope, $location, taskboard) {
+taskboardModule.controller('taskboardDetailController', function ($scope, $location, taskboard) {
     $scope.taskboard = taskboard;
-}
+});
 
 
-taskboardModule.taskCreateController = function ($scope, $routeParams, $location, task) {
-    var taskboardId = $routeParams.taskboardId;
-    $scope.task = task;
-    $scope.save = function () {
-        var task = $scope.task;
-        if (!(task['tags'] instanceof Array)) {
-            task['tags'] = task['tags'].split(",");
-            $scope.task = task;
-        }
-        $scope.task.$save(function (task, headers) {
-            toastr.success("Created New Task");
-            $location.path('/taskboards/' + taskboardId);
-        });
-    };
-}
+taskboardModule.controller('taskCreateController', ['$scope', '$location', '$routeParams', 'Task',
+    function ($scope, $location, $routeParams, Task) {
+        var taskboardId = $routeParams.taskboardId;
+        $scope.task = new Task({});
+
+        $scope.save = function () {
+            var task = $scope.task;
+            if (!(task['tags'] instanceof Array)) {
+                task['tags'] = task['tags'].split(",");
+                $scope.task = task;
+            }
+            $scope.task.$save(function (task) {
+                toastr.success("Created New Task");
+                $location.path('/taskboards/' + taskboardId);
+            });
+        };
+    }]
+);
