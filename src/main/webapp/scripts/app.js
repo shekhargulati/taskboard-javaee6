@@ -34,8 +34,8 @@ services.factory('TaskboardLoader', ['Taskboard', '$route', '$q',
 );
 
 services.factory('Task',
-    function ($resource, $routeParams) {
-        var taskboardId = $routeParams.taskboardId;
+    function ($resource, $route) {
+        var taskboardId = $route.current.params.taskboardId;
         var task = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId/tasks/:taskId', {taskboardId: taskboardId, taskId: "@id"});
         task.prototype.isNew = function () {
             return (typeof(this.id) === 'undefined');
