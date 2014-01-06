@@ -60,8 +60,6 @@ taskboardModule.taskboardCreateController = function ($scope, $routeParams, $loc
         });
     };
 }
-
-
 taskboardModule.taskboardDetailController = function ($scope, $routeParams, $location, Taskboard) {
     var taskboardId = $routeParams.taskboardId;
     $scope.taskboard = Taskboard.get({taskboardId: taskboardId});
