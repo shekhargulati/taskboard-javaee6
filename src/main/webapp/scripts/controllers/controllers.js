@@ -15,7 +15,7 @@ taskboardModule.config(['$routeProvider', function ($routeProvider) {
         }).
         when('/taskboards/new', {
             templateUrl: 'views/taskboard/create.html',
-            controller: taskboardModule.taskboardCreateController
+            controller: 'taskboardCreateController'
         }).
         when('/taskboards/:taskboardId', {
             templateUrl: 'views/taskboard/detail.html',
