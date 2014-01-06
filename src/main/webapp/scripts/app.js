@@ -1,13 +1,11 @@
 var services = angular.module("taskboard.services", ["ngRoute", "ngResource"]);
 
-services.factory('Taskboard', ['$resource',
-    function ($resource) {
-        var taskboard = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId', {taskboardId: '@id'});
-        taskboard.prototype.isNew = function () {
-            return (typeof(this.id) === 'undefined');
-        }
-        return taskboard;
-    }]
+services.factory('Taskboard', function ($resource) {
+        return  $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId', {taskboardId:'@id'},{
+            query: {method:'GET', isArray:true},
+            get :{method:'GET',isArray:false}
+        });
+    }
 );
 
 services.factory('TaskboardListLoader', ['Taskboard', '$q',
@@ -38,7 +36,7 @@ services.factory('TaskboardLoader', ['Taskboard', '$route', '$q',
     }]
 );
 
-services.factory('Task', ['$resource',
+services.factory('Task',
     function ($resource, $routeParams) {
         var taskboardId = $routeParams.taskboardId;
         var task = $resource('http://taskboard-shekhargulati.rhcloud.com/api/v1/taskboards/:taskboardId/tasks/:taskId', {taskboardId: taskboardId, taskId: "@id"});
@@ -46,7 +44,8 @@ services.factory('Task', ['$resource',
             return (typeof(this.id) === 'undefined');
         }
         return task;
-    }]);
+    }
+);
 
 services.factory('TaskListLoader', ['Task', '$q',
     function (Task, $q) {

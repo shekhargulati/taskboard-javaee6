@@ -43,13 +43,10 @@ public class Taskboard {
     private Date createdOn = new Date();
 
     @Column
-    @Future
-    @NotNull
     @Temporal(TemporalType.DATE)
     private Date start;
 
     @Column
-    @Future
     @Temporal(TemporalType.DATE)
     private Date end;
 

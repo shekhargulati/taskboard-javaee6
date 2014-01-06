@@ -39,8 +39,6 @@ public class Task {
     private List<String> tags = new ArrayList<String>();
 
     @Column
-    @NotNull
-    @Future
     @Temporal(TemporalType.DATE)
     private Date dueDate;
 
